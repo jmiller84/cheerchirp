@@ -11,31 +11,33 @@
     <br>
     <a href="/login">Already a member? Sign in</a>
 
+    {% if auth == True %}
 
-    {% if errors %}
-      <p>There were errors with your submission:</p>
-      <p> {{ errors }} </p>
+      {% if errors %}
+        <p>There were errors with your submission:</p>
+        <p> {{ errors }} </p>
+      {% endif %}
+
+      <h1>New Cheerful Chirp</h1>
+      <form action="/" method="post">
+        <p>
+          <label for="title">Title</label>
+          <input type="text" name="title" id="title">
+        </p>
+        <p>
+          <label for="content">Content</label>
+          <input type="text" name="content" id="content">
+        </p>
+        <p>
+          <label for="user_id">user_id</label>
+          <input type="text" name="user_id" id="user_id">
+        </p>
+        <p>
+          <input type="submit" value="Create Post">
+        </p>
+      </form>
+
     {% endif %}
-
-    <h1>New Cheerful Chirp</h1>
-    <form action="/" method="post">
-      <p>
-        <label for="title">Title</label>
-        <input type="text" name="title" id="title">
-      </p>
-      <p>
-        <label for="content">Content</label>
-        <input type="text" name="content" id="content">
-      </p>
-      <p>
-        <label for="user_id">user_id</label>
-        <input type="text" name="user_id" id="user_id">
-      </p>
-      <p>
-        <input type="submit" value="Create Post">
-      </p>
-    </form>
-
     <br>
     <h1>Chirps</h1>
 

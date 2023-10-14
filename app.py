@@ -5,9 +5,11 @@ from lib.post import Post
 from lib.post_repository import PostRepository
 from lib.user import User
 from lib.user_repository import UserRepository
+from config import secret_key
 
 
 app = Flask(__name__)
+app.secret_key = secret_key
 
 #------------------LOG IN---------------------
 
@@ -32,7 +34,8 @@ def login_post():
 
         return render_template('login_success.html')
     else:
-        return render_template('login_error.html')
+        errors = "Username and Password did not match please try again"
+        return render_template('login.html', errors=errors)
         
 #------------------SIGN UP---------------------
 
@@ -55,9 +58,12 @@ def signup_post():
 
     if not repository.find_by_username(username):
         if repository.password_is_valid(password):
-            new_user = User(username, password, email, first_name, surname)
+            new_user = User(None, username, password, email, first_name, surname)
             repository.create(new_user)
-            return render_template('signup_complete.html')
+            auth_user = repository.find_by_username(username)
+            session['user_id'] = auth_user.id
+
+            return redirect('/')
         else:
             errors = "Password is not valid"
             return render_template('signup.html', errors = errors)
@@ -75,8 +81,13 @@ def get_posts():
     connection = get_flask_database_connection(app)
     repository = PostRepository(connection)
 
+    if 'user_id' in session:
+        auth = True
+    else:
+        auth = False
+
     posts = repository.all() 
-    return render_template("/index.html", posts = posts)
+    return render_template("/index.html", posts = posts, auth=auth)
 
 # POST /
 @app.route('/', methods = ['POST'])

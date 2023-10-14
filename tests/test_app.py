@@ -24,5 +24,8 @@ def test_create_post(page, test_web_address, db_connection):
     expect(page.locator(".t-title")).to_contain_text(["Test Title", "Test Post", "My Day"])
     expect(page.locator(".t-content")).to_contain_text(["Test Content", "Test Post Content", "It was a good day"])
 
-
+# """
+# When we create a new user using the signup page
+# We 
+# """
 
