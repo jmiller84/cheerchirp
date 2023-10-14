@@ -27,12 +27,14 @@ def login_post():
     username = request.form['username']
     password = request.form['password']
 
+
     if repository.check_password(username, password):
-        user = UserRepository.find_by_username(username)
+
+        user = repository.find_by_username(username)
         # Set the user ID in session
         session['user_id'] = user.id
 
-        return render_template('login_success.html')
+        return redirect('/')
     else:
         errors = "Username and Password did not match please try again"
         return render_template('login.html', errors=errors)
@@ -95,17 +97,21 @@ def create_post():
     connection = get_flask_database_connection(app)
     repository = PostRepository(connection)
 
-    title = request.form['title']
-    content = request.form['content']
-    user_id = request.form['user_id']
-    new_post = Post(None, title, content, user_id)
+    if "logout_button" in request.form:
+        session.pop('user_id')
+        return redirect("/")
+    else:
+        title = request.form['title']
+        content = request.form['content']
+        user_id = request.form['user_id']
+        new_post = Post(None, title, content, user_id)
 
-    if not new_post.is_valid():
-        errors = new_post.generate_errors()
-        return render_template("/index.html", errors= errors)
+        if not new_post.is_valid():
+            errors = new_post.generate_errors()
+            return render_template("/index.html", errors= errors)
 
-    repository.create(new_post) 
-    return redirect("/")
+        repository.create(new_post) 
+        return redirect("/")
 
 
 

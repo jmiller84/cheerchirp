@@ -7,9 +7,12 @@
   </head>
   <br>
   <body>
-    <a href="/signup">Create an account</a>
-    <br>
-    <a href="/login">Already a member? Sign in</a>
+    {% if auth == False %}
+      <a href="/signup">Create an account</a>
+      <br>
+      <a href="/login">Already a member? Sign in</a>
+    {% endif %}
+    
 
     {% if auth == True %}
 
@@ -19,6 +22,11 @@
       {% endif %}
 
       <h1>New Cheerful Chirp</h1>
+
+      <form action="/" method="POST">
+        <input type="submit" name="logout_button" value="Log Out">
+      </form>
+
       <form action="/" method="post">
         <p>
           <label for="title">Title</label>
