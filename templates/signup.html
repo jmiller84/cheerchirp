@@ -1,0 +1,42 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <a href="/"><h1>CheerCHIRP</h1></a>
+    <h1>Welcome New User</h1>
+</head>
+<body>
+    <br>
+    <p>Need to create an account?</p>
+    {% if errors %}
+      <p> {{ errors }}</p>
+    {% endif %}
+    <form action="/signup" method="post">
+      <p>
+          <label for="username">Username:</label>
+          <input type="text" name="username" id="username">
+      </p>
+      <p>
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password">
+      </p>
+      <p>
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email">
+      </p>
+      <p>
+          <label for="first_name">Firts Name</label>
+          <input type="text" name="first_name" id="first_name">
+      </p>
+      <p>
+          <label for="surname">Surname</label>
+          <input type="text" name="surname" id="surname">
+      </p>       
+      <p>
+          <input type="submit" name="submit" value="Submit">
+      </p>
+    </form>
+    
+</body>
+</html>

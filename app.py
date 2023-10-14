@@ -1,35 +1,102 @@
 import os
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, session
 from lib.database_connection import get_flask_database_connection
+from lib.post import Post
+from lib.post_repository import PostRepository
+from lib.user import User
+from lib.user_repository import UserRepository
 
-# Create a new Flask app
+
 app = Flask(__name__)
 
-# == Your Routes Here ==
+#------------------LOG IN---------------------
+
+# GET /login
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+# POST /login
+@app.route('/login', methods=['POST'])
+def login_post():
+    connection = get_flask_database_connection(app)
+    repository = UserRepository(connection)
+
+    username = request.form['username']
+    password = request.form['password']
+
+    if repository.check_password(username, password):
+        user = UserRepository.find_by_username(username)
+        # Set the user ID in session
+        session['user_id'] = user.id
+
+        return render_template('login_success.html')
+    else:
+        return render_template('login_error.html')
+        
+#------------------SIGN UP---------------------
+
+# GET /signup
+@app.route('/signup')
+def signup():
+    return render_template('signup.html')
+
+# POST /signup
+@app.route('/signup', methods=['POST'])
+def signup_post():
+    connection = get_flask_database_connection(app)
+    repository = UserRepository(connection)
+
+    username = request.form['username']
+    password = request.form['password']
+    email = request.form['email']
+    first_name = request.form['first_name']
+    surname = request.form['surname']
+
+    if not repository.find_by_username(username):
+        if repository.password_is_valid(password):
+            new_user = User(username, password, email, first_name, surname)
+            repository.create(new_user)
+            return render_template('signup_complete.html')
+        else:
+            errors = "Password is not valid"
+            return render_template('signup.html', errors = errors)
+    else:
+        errors = "Username has already been taken"
+        return render_template('signup.html', errors = errors)
 
 
-# == Example Code Below ==
 
-# GET /emoji
-# Returns a smiley face in HTML
-# Try it:
-#   ; open http://localhost:5001/emoji
-@app.route('/emoji', methods=['GET'])
-def get_emoji():
-    # We use `render_template` to send the user the file `emoji.html`
-    # But first, it gets processed to look for placeholders like {{ emoji }}
-    # These placeholders are replaced with the values we pass in as arguments
-    return render_template('emoji.html', emoji=':)')
+#------------------ HOME PAGE ---------------------
 
-# This imports some more example routes for you to see how they work
-# You can delete these lines if you don't need them.
-from example_routes import apply_example_routes
-apply_example_routes(app)
+ # GET /
+@app.route('/', methods=['GET'])
+def get_posts():
+    connection = get_flask_database_connection(app)
+    repository = PostRepository(connection)
 
-# == End Example Code ==
+    posts = repository.all() 
+    return render_template("/index.html", posts = posts)
 
-# These lines start the server if you run this file directly
-# They also start the server configured to use the test database
-# if started in test mode.
+# POST /
+@app.route('/', methods = ['POST'])
+def create_post():
+    connection = get_flask_database_connection(app)
+    repository = PostRepository(connection)
+
+    title = request.form['title']
+    content = request.form['content']
+    user_id = request.form['user_id']
+    new_post = Post(None, title, content, user_id)
+
+    if not new_post.is_valid():
+        errors = new_post.generate_errors()
+        return render_template("/index.html", errors= errors)
+
+    repository.create(new_post) 
+    return redirect("/")
+
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=int(os.environ.get('PORT', 5001)))

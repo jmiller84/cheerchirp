@@ -1,20 +1,28 @@
 from playwright.sync_api import Page, expect
+from lib.database_connection import DatabaseConnection
 
-# Tests for your routes go here
+connection = DatabaseConnection(test_mode=False)
+connection.connect()
+connection.seed("seeds/cheerchirp.sql")
 
-# === Example Code Below ===
 
 """
-We can get an emoji from the /emoji page
+When we visit the posts page
+And submit the form to create a new post
+We see the post on the page
 """
-def test_get_emoji(page, test_web_address): # Note new parameters
-    # We load a virtual browser and navigate to the /emoji page
-    page.goto(f"http://{test_web_address}/emoji")
+def test_create_post(page, test_web_address, db_connection):
+    page.set_default_timeout(1000)
+    db_connection.seed("seeds/cheerchirp.sql")
+    page.set_default_timeout(1000)
+    page.goto(f"http://{test_web_address}/")
+    page.fill("input[name='title']", "My Day")
+    page.fill("input[name='content']", "It was a good day")
+    page.fill("input[name='user_id']", "1")
+    page.click("text=Create Post")
 
-    # We look at the <strong> tag
-    strong_tag = page.locator("strong")
+    expect(page.locator(".t-title")).to_contain_text(["Test Title", "Test Post", "My Day"])
+    expect(page.locator(".t-content")).to_contain_text(["Test Content", "Test Post Content", "It was a good day"])
 
-    # We assert that it has the text ":)"
-    expect(strong_tag).to_have_text(":)")
 
-# === End Example Code ===
+
