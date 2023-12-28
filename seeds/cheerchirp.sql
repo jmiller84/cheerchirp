@@ -20,6 +20,7 @@ CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255),
     content VARCHAR(255),
+    datetime TIMESTAMP,
     user_id INT,
     CONSTRAINT fk_user foreign key(user_id)
     REFERENCES users(id)
@@ -32,5 +33,5 @@ CREATE TABLE posts (
 INSERT INTO users (username, password, email, first_name, surname) VALUES ('jmiller84', 'password123!', 'jmiller@hotmail.com', 'Joe', 'Miller');
 INSERT INTO users (username, password, email, first_name, surname) VALUES ('alexm_2023', 'London123', 'alexm@hotmail.com', 'Alex', 'Martin');
 
-INSERT INTO posts (title, content, user_id) VALUES ('Test Title', 'Test Content',  1);
-INSERT INTO posts (title, content,   user_id) VALUES ('Test Post', 'Test Post Content', 2);
+INSERT INTO posts (title, content, datetime, user_id) VALUES ('Test Title', 'Test Content', '2023-10-15 14:30:00', 1);
+INSERT INTO posts (title, content,  datetime, user_id) VALUES ('Test Post', 'Test Post Content', '2023-10-15 12:00:00', 2);

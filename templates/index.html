@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+  
   <head>
-    <title>CheerCHIRP</title>
-    <a href="/"><h1>CheerCHIRP</h1></a>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="static/css/styles.css">
+    <title>CheerCHIRP</title> 
   </head>
   <br>
   <body>
+    <a href="/"><h1 class="cheer_header">CheerCHIRP</h1></a>
     {% if auth == False %}
       <a href="/signup">Create an account</a>
       <br>
@@ -23,6 +25,11 @@
 
       <h1>New Cheerful Chirp</h1>
 
+      {% if messages %}
+        <p>{{ messages }} </p>
+
+      {% endif %}
+
       <form action="/" method="POST">
         <input type="submit" name="logout_button" value="Log Out">
       </form>
@@ -37,10 +44,6 @@
           <input type="text" name="content" id="content">
         </p>
         <p>
-          <label for="user_id">user_id</label>
-          <input type="text" name="user_id" id="user_id">
-        </p>
-        <p>
           <input type="submit" value="Create Post">
         </p>
       </form>
@@ -50,10 +53,15 @@
     <h1>Chirps</h1>
 
     {% for post in posts %}
-      <article>
+      <div class="container">
         <h2 class="t-title">{{ post.title }}</h2>
-        <p class="t-content">{{ post.content }}</p>
-      </article>
+        <div class="card">
+            <p class="t-name">{{ post.user_id.username }}</p> : <p class="t-datetime">{{ post.datetime }}</p>
+        </div>
+        <div class="content-block">
+          <p class="t-content">{{ post.content }}</p>
+        </div>
+      </div>
     {% endfor %}
   </body>
 </html>

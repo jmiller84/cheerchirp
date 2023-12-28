@@ -1,0 +1,20 @@
+ .daily_motivation {
+   position: fixed;
+   padding-top: 25px;
+ }
+
+ .daily_motivation__heading{
+    font-size: 25px;
+    font-family: courier;
+    font-weight: 700;
+    color: #3590F3;
+    padding: 10px;
+ }
+
+ .daily_motivation__content{
+    font-size: 15px;
+    font-family: courier;
+    font-weight: 700;
+    color: #3590F3;
+    padding: 10px;
+ }

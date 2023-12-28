@@ -1,0 +1,63 @@
+.positivity_stream--title {
+    text-align: center;
+    font-size: 50px;
+    font-family: courier;
+    font-weight: 700;
+    color: #3590f3;
+    padding: 20px;
+}
+
+
+.layout__main-header {
+    font-size: 25px;
+    font-family: courier;
+    font-weight: 700;
+    color: #ffffff;
+    padding: 20px;
+}
+
+.tweet {
+    display: flex;
+    border-bottom: 2px solid #f8e9a1;
+    margin-bottom: 2px;
+    padding-top: 10px 15px;
+    background: #374785;
+    border-radius: 10px;
+}
+
+.tweet:hover{
+    background: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.tweet__author-logo {
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.tweet__header {
+    display: flex;
+}
+
+.tweet__author-name {
+    font-size: 15px;
+    font-family: courier;
+    font-weight: 700;
+    color: #e0e0e0;
+    margin-right: 10px;
+}
+
+.tweet__published-time {
+    font-size: 25px;
+    font-family: courier;
+    font-weight: 700;
+    color: #e0e0e0;
+}
+
+.tweet__content{
+    font-size: 15px;
+    font-family: courier;
+    font-weight: 700;
+    color: #f8e9a1;
+}

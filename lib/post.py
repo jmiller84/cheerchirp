@@ -1,10 +1,11 @@
 from datetime import datetime
 
 class Post:
-    def __init__(self, id, title, content, user_id):
+    def __init__(self, id, title, content, datetime, user_id):
         self.id = id
         self.title = title
         self.content = content
+        self.datetime = datetime
         self.user_id = user_id
 
 

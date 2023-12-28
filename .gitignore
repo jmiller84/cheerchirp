@@ -4,3 +4,4 @@ __pycache__
 .pytest_cache
 screenshot.png
 
+css/trade_hub.css

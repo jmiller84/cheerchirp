@@ -1,0 +1,14 @@
+body {
+    background-color: #F1e3F3;
+    padding: 10px;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 275px auto 350px;
+    margin: 0 auto;
+}
+
+.layout__right-sidebar {
+    position: fixed;
+}

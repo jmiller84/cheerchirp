@@ -11,6 +11,12 @@ from config import secret_key
 app = Flask(__name__)
 app.secret_key = secret_key
 
+
+@app.route('/index_new')
+def new_index():
+    return render_template('index_new.html')
+
+
 #------------------LOG IN---------------------
 
 # GET /login
@@ -88,7 +94,7 @@ def get_posts():
     else:
         auth = False
 
-    posts = repository.all() 
+    posts = repository.all_with_user_info() 
     return render_template("/index.html", posts = posts, auth=auth)
 
 # POST /
@@ -103,15 +109,21 @@ def create_post():
     else:
         title = request.form['title']
         content = request.form['content']
-        user_id = request.form['user_id']
-        new_post = Post(None, title, content, user_id)
+        user_id = session['user_id']
 
-        if not new_post.is_valid():
-            errors = new_post.generate_errors()
-            return render_template("/index.html", errors= errors)
+        if repository.content_is_positive(content) == "True" :
+            new_post = Post(None, title, content, None, user_id)
 
-        repository.create(new_post) 
-        return redirect("/")
+            if not new_post.is_valid():
+                errors = new_post.generate_errors()
+                return redirect("/", errors= errors)
+
+            repository.create(new_post) 
+            return redirect("/")
+        else:
+            messages = "This is not a positive post, rephrase the content and try again"
+            return redirect("/", messages)
+
 
 
 

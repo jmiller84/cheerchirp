@@ -1,0 +1,93 @@
+body {
+  background-image: linear-gradient(to top right, rgb(254, 231, 197) , rgb(254, 231, 197));
+  /* background-color: rgb(249, 128, 53); */
+}
+
+a {
+  text-decoration: none;
+}
+  
+.cheer_header { 
+  text-align: center; /* Center the content horizontally */
+  padding: 2rem; 
+  color: rgb(255, 197, 14);
+  font-family: courier;
+  font-size: 500%;
+  /* background-color: rgb(242, 149, 91); */
+
+}
+
+/* .container {
+  display: flex;
+  align-items: center; 
+  height: 100vh; 
+} */
+
+/* Apply styles to each card */
+.container {
+  /* padding: 5px;
+  margin: 50px; */
+  width: 1000px;
+  background-color: rgb(237, 93, 41);
+  border-radius: 10px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
+}
+
+
+.card {
+  width: 800px;
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.t-title {
+  text-align: center; /* Center the content horizontally */
+  padding: 0.5rem; 
+  color: rgb(255, 255, 255);
+  font-family: courier;
+  font-size: 150%;
+}
+
+.info-line{
+  display: inline-block;
+}
+
+.t-name, .t-datetime {
+  display: inline;
+  padding: 0.2rem; 
+  color: rgb(26, 56, 116);
+  font-family: courier;
+  font-size: 100%;
+}
+
+.t-content {
+  padding: 0.5rem; 
+  color: rgb(0, 0, 0);
+  font-family: courier;
+  font-size: 100%;
+}
+
+/* On mouse-over, add a deeper shadow 
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+*/
+
+/* Add some padding inside the card container 
+.container {
+  padding: 2px 16px;
+}
+*/
+
+
+/* h1 {
+  color: rgb(255, 255, 255);
+  font-family: verdana;
+  font-size: 300%;
+} */
+
