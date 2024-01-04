@@ -1,6 +1,6 @@
 # TwitterStyle AI-Powered Social Media App
 
-Welcome to our Twitter-style application developed during my tenure at Makers Academy Bootcamp! This application addresses the prevalent issue of negative and toxic comments on social media platforms by leveraging the capabilities of AI. We have integrated ChatGPT's API to analyze user messages and determine whether they are positive or negative. If a message is identified as negative, the application prompts the user to rewrite it.
+Welcome to my Twitter-style application developed during my time at the Makers Academy Bootcamp! This application addresses the prevalent issue of negative and toxic comments on social media platforms by leveraging the capabilities of AI. I have integrated ChatGPT's API to analyze user messages and determine whether they are positive or negative. If a message is identified as negative, the application prompts the user to rewrite it.
 
 ## Key Features
 
